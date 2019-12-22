@@ -400,12 +400,120 @@ Explique o porquê dos preços estarem com o mesmo valor. E o que precisa ser al
 
 ```js
 // Resposta
+Conceitualmente, componentes são como funções JavaScript. Eles aceitam entradas arbitrárias (chamadas “props”) e retornam elementos React que descrevem o que deve aparecer na tela. Existem dois tipos de escrita de componentes no React, sendo eles de Função e de Classe:
+
+A maneira mais simples de definir um componente é escrever uma função JavaScript:
+
+    function Welcome(props) {
+      return <h1>Hello, {props.name}</h1>;
+    }
+
+Essa função é um componente React válido porque aceita um único argumento de objeto “props” (que significa propriedades) com dados e retorna um elemento React. Nós chamamos esses componentes de “componentes de função” porque são literalmente funções JavaScript.
+
+Você também pode usar uma classe ES6 para definir um componente:
+
+    class Welcome extends React.Component {
+      render() {
+        return <h1>Hello, {this.props.name}</h1>;
+      }
+    }
+
+Os dois componentes acima são equivalentes do ponto de vista do React.
 ```
 
 2\) O que são e como funcionam os lifecycles no ReactJs? Cite um exemplo de uso de pelo menos um método lifecycle.
 
 ```js
 // Resposta
+Todo componente no React possui um ciclo de vida, dizemos que os componentes são montados em tela, podem sofrer alterações e no fim são desmontados. Assim, a cada passo do ciclo de vida de um componente conseguimos chamar métodos interceptando sua renderização tradicional ou captando informações desse ciclo. Esses métodos são definidos junto à classe do componente, o render é um deles. Vamos entender como tudo isso funciona:
+
+**constructor**
+Apenas de não estar diretamente atrelado ao ciclo de vida do componente, o método constructor é a primeira função executada no componente.
+
+    class App extends Component {
+      constructor(props) {
+        super(props);
+      }
+    }
+
+Obs.: Sempre que definirmos o constructor, precisamos repassar as props recebidas para o componente pai Component.
+
+**componentWillMount**
+Após do constructor o método seguinte executado é o componentWillMount, ainda antes do render. Esse método é executado 1 vez por componente e pode inclusive realizar alterações no estado:
+
+    class App extends Component {
+      componentWillMount() {
+        this.setState({ loading: true });
+      }
+    }
+
+**render**
+Logo após, o método render é chamado construindo a View do nosso componente, esse método é chamado toda vez que uma alteração nas propriedades ou estado do componente é realizada. Você não deve utilizar qualquer função nesse método, apenas retornar conteúdo JSX.
+
+**componentDidMount**
+Chamado após o render indica que a renderização inicial do nosso componente foi finalizada, é o local recomendado para fazer qualquer processo assíncrono ou de efeito colateral como chamadas à API, referenciar componentes criados no render ou inclusive alterar o estado, disparando uma nova atualização no fluxo do componente.
+
+    class App extends Component {
+      componentDidMount() {
+        // O render já executou, o que faremos agora?
+      }
+    }
+Agora finalizamos os métodos responsáveis pela primeira renderização dos componentes e vamos partir para os métodos responsáveis pela atualização no ciclo de vida:
+
+**componentWillReceiveProps**
+Executado automaticamente toda vez que alguma propriedade do componente for atualizada, por exemplo, imagine estarmos passando a propriedade title ao componente da seguinte forma:
+
+    <App title="Meu título" />
+
+E em algum momento alterarmos essa propriedade Meu título para Outro título, o componentWillReceiveProps do App irá ser avisado e receberá como parâmetro as novas propriedades. Esse método é muito utilizado quando o estado do nosso componente é composto por propriedades, e dessa forma podemos alterar o estado por esse método:
+
+    class App extends Component {
+      componentWillReceiveProps(props) {
+        this.setState({ title: `Aplicação ${props.title}` });
+      }
+    }
+
+**shouldComponentUpdate**
+Método responsável por determinar se o componente deve realizar o render novamente ou não. Lembrando que qualquer alteração de propriedade ou estado do componente faz com que ele gere uma nova renderização, mas isso é realmente necessário? Talvez não. Imagine que seu componente mostre apenas o título no render e você atualize a propriedade de descrição, isso não deveria causar um render, correto? Nesse caso verificamos se o título foi alterado, se não simplesmente retornamos false para indicar que não precisamos atualizar o componente:
+
+    class App extends Component {
+      shouldComponentUpdate(newProps, newState) {
+        return newProps.title !== this.props.title;
+      }
+    }
+
+Obs.: Como o componente ouve atualizações no estado e propriedades, você receberá essas duas informações no shouldComponentUpdate.
+
+**componentWillUpdate**
+Ok, o shouldComponentUpdate liberou a atualização, o componentWillUpdaterealiza a intermediação entre o render e dessa forma você poderá realizar alguma preparação antes de realizar o render. Esse método também recebe as novas propriedades e estado. Após esse método, o render é disparado novamente com as alterações.
+
+**componentDidUpdate**
+Executado após o novo render indicando que o componente foi atualizado com sucesso. Recebe as propriedades e estado antigos como parâmetro.
+
+Fora desse ciclo de criação e atualização, existem mais dois métodos:
+
+**componentWillUnmount**
+Chamado antes de um componente ser desmontado, ótimo para cancelar EventListeners ou setIntervals que ainda possam estar sendo executados.
+
+**componentDidCatch**
+A partir do React 16 você já pode ouvir erros causados durante o ciclo de vida do componente utilizando o componentDidCatch, você inclusive pode passar esses erros para a View utilizando o setState:
+
+    class App extends Component {
+      componentDidCatch(error, info) {
+        this.setState({ errorMessage: error.message });
+      }
+    }
+
+**Novos métodos de ciclo de vida**
+Vimos acima que existem muitos métodos para controlarmos o fluxo de mount/atualização/unmount de cada elemento na tela.
+
+A partir da versão 16.3.0 o ReactJS está depreciando três métodos: componentWillMount, componentWillReceiveProps, e componentWillUpdate.
+
+Apesar de termos três estágios do ciclo de vida a menos agora, nessa versão do React foram adicionados dois novos métodos:
+
+**getDerivedStateFromProps** – Utilize esse método quando você precisar setar o state do seu componente baseado em alguma propriedade que ele está recebendo. Esse ciclo de vida é executado tanto na inicialização do componente quanto na sua atualização de propriedades e deve retornar as alterações no estado do componente baseada nas propriedades ou nulo.
+
+**getSnapshotBeforeUpdate** – Um novo ciclo utilizado para você buscar informações da DOM antes das alterações ocorrerem. Um exemplo é uma lista grande, ao atualizar seus itens seria interessante saber aonde estava o scroll do usuário para mantê-lo ou até reposiciona-lo. Todo valor retornado por esse método é enviado ao componentDidUpdate que é o ciclo executado na sequência.
 ```
 
 3\) Atualmente nosso sistema possui um componente chamado Button que possui a seguinte estrutura:
@@ -452,6 +560,7 @@ O que você pode fazer para criar um botão que atenda essa demanda?
 
 ```js
 // Resposta
+Para resolver está questão, posso criar uma variável de contexto com o comando React.createContext passando como parâmetro o valor padrão quando nenhum valor existir nessa variável. Utilizarei um componente chamado Provider que pertence à essa variável. Para isso vou precisar fazer uma função dentro do Consumer que recebe como parâmetro o valor da variável e retorna um elemento.
 ```
 
 
