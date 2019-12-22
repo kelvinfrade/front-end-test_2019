@@ -351,28 +351,112 @@ Explique o porquê dos preços estarem com o mesmo valor. E o que precisa ser al
 
 ### AngularJs
 
-1\) Explique os tipos de Data Binding no AngularJS; 
+1\) Explique os tipos de Data Binding no AngularJS;
 
 ```js
 // Resposta
+A maioria dos sistemas de templates vinculam dados em apenas uma direção, que se funde com os componentes do modelo, e este por sua vez, executa uma saída na sua tela (isso é o evento Data Binding no AngularJS padrão). Após esta fusão, ocorrem algumas mudanças no modelo ou parte dele (seções), que estão relacionadas a esta tela. Entretanto, este comportamento, não é automático como pressupõe-se ao ver isso ocorrendo na tela. E pior ainda, as alterações que o usuário faz na tela não são refletidos no modelo.
+
+A grande jogada, está na mão do desenvolvedor, que tem que escrever o código que faz esta sincronia de maneira constante através do modelo e o mesmo retorna essa atualização para a tela (visão). Acontece que no AngularJs, O Data Binding funciona um pouco diferente:
+
+Em aplicativos angulares de ligação de dados, a sincronização de dados é automática, entre os componentes do modelo e sua exibição (tela). A maneira que Angular implementa esta vinculação de dados, permite que você trate o modelo como um single-source da sua aplicação. O que você vê na tela é uma projeção do modelo a todo instante. Quando o modelo muda, a visão reflete esta mudança, e vice-versa.
+
+Primeiro o modelo (a HTML empacotada, juntamente com qualquer marcação ou diretiva adicional) é compilado no navegador. A etapa de compilação produz uma exibição ao vivo. Quaisquer alterações na tela são imediatamente refletidas no modelo, e quaisquer mudanças no modelo são propagadas para a visão (tela). O modelo é justamente a única verdade absoluta do estado do seu aplicativo. Isso é feito para facilitar o modelo de programação para o desenvolvedor.
+
+Você pode pensar na visão (tela) como uma simples projeção instantânea do seu modelo. Porque a tela é apenas uma projeção do modelo, e o controlador é completamente separado da tela. É a visão (tela) que enxerga o controlador e que envia comandos para ele.
+
+Pense que o modelo é um tipo de facilitador, e o controlador o cara que envia as ordens para ele, e o que o modelo "facilitar", será refletido automaticamente na visão.
+
+![Data Binding no AngularJS](https://docs.angularjs.org/img/Two_Way_Data_Binding.png)
 ```
+
 
 2\) Liste quais são os Dispatchers e Listeners que existem no AngularJs, as diferenças entre eles, vantagens e desvantagens no uso dos mesmos;
 
 ```js
 // Resposta
+
+#### Dispatchers
+
+O AngularJS fornece um sistema de dispatches de eventos que permite a comunicação entre controladores ou serviços e controladores.
+
+**$broadcast** - dispatches o evento para baixo pelos escopos filho
+
+**$emit** - dispatches  o evento para cima através da hierarquia de escopo
+
+**$on** - captura o evento que passa por esse escopo
+
+
+Geralmente, você pode vê-lo em uso $rootScope ou $scope:
+
+    $scope.$broadcast('eventName', arg);
+    $rootScope.$broadcast('eventName', arg);
+
+    $scope.$emit('eventName', arg);
+    $rootScope.$emit('eventName', arg);
+
+    $scope.$on('eventToCatch', function);
+    $rootScope.$on('eventToCatch', function);
+
+Agora, há algumas coisas a saber sobre como usá-lo em $rootScope:
+
+- Ambos $rootScope.$emite $rootScope.$broadcastpassam por escopos filhos, já $rootScopeque não têm um pai
+
+- $rootScope.$emit só pode ser recebido por $rootScope.$on
+
+- $rootScope.$broadcastpode ser recebido por $rootScope.$one$scope.$on
+
+- $rootScope.$on o ouvinte precisa ser removido manualmente (vazamento de memória se esquecido)
+
+**Performance**
+
+O uso $broadcastpode não parecer ideal se considerarmos a descrição que temos acima. No entanto, é otimizado para passar apenas por ramificações que possuem uma ligação de evento correspondente.
+
+#### Listeners
+
+Pode adicionar listeners de evento no AngularJs aos seus elementos HTML usando uma ou mais das diretivas abaixo:
+
+- ng-blur
+- ng-change
+- ng-click
+- ng-copy
+- ng-cut
+- ng-dblclick
+- ng-focus
+- ng-keydown
+- ng-keypress
+- ng-keyup
+- ng-mousedown
+- ng-mouseenter
+- ng-mouseleave
+- ng-mousemove
+- ng-mouseover
+- ng-mouseup
+- ng-paste
+
+As diretivas de eventos nos permitem executar funções do AngularJs em determinados eventos do usuário.
 ```
 
 3\) O que são e como funcionam os lifecycles no AngularJs? Cite um exemplo de uso de pelo menos um método lifecycle.
 
 ```js
 // Resposta
+Existe alguns ciclos de vida onde o processo de renderização do AngularJs acontece, sendo eles:
+
+- ngAfterContentInit: Após o Angular pegar um conteúdo externo e inserir no componente: ng-content, chamado uma vez após o ngDoCheck.
+
+- ngAfterViewInit: Após o Angular inicializar suas páginas e páginas filhas. Ele é chamado uma vez após o ngAfterContentChecked.
+
+Basicamente temos os seguintes ciclos nesta ordem, sendo que durante a etapa amarela é onde os processos de renderização acontecem:
+
+![Lifecycles no AngularJs](https://codecraft.tv/courses/angular/components/lifecycle-hooks/images/lifecycle-hooks.png)
 ```
 
 4\) Qual recurso angularJs pode ser usado para aumentar a performance de campos de formulários que realizam algum processamento ao alterar o texto?
 
 ```js
 // Resposta
+Existem vários recursos do AngularJs como formulários orientados a templates, formulários orientados a dados (reativos),mas para aumentar a performance neste caso, podemos utilizar as validações assíncronas, o Form Builder e o Form Array.
 ```
 
 5\) Dado o `Nesting` de componentes abaixo, indique a melhor forma do componente `<fourth-component>` se comunicar com `<first-component>`;
@@ -391,6 +475,7 @@ Explique o porquê dos preços estarem com o mesmo valor. E o que precisa ser al
 
 ```js
 // Resposta
+Podemos trabalhar com @Output. Evento disparado no filho que capturado no pai. Tendo em vista que a comunicação entre componentes pai e filho é simples, passamos através de property e a comunicação entre filho e pai passamos através de evento. Basta importar o EventEmitter e fazer uso.
 ```
 ---
 
