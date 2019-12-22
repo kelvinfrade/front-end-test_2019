@@ -8,6 +8,7 @@ Justifique levando em consideração boas práticas, estilização e formato de 
 
 ```js
 // Resposta
+Utilizo o CSS3 que agora permite coisas antes impossíveis, como elementos com cor ou fundo gradiente, sombras e cantos arredondados. Antes só era possível atingir esses resultados com o uso de imagens e às vezes até com um pouco de JavaScript. A redução do uso de imagens traz grandes vantagens quanto à performance e quantidade de tráfego de dados necessária para a exibição de uma página. Para aumentar a velocidade de carregamento do site/aplicação, faço uso da técnica de inserir imagens usando css. Esta prática consiste em utilizar a propriedade background-image do css para inserir as imagens.
 ```
 
 
@@ -19,6 +20,21 @@ Explique um pouco através de exemplos;
 
 ```js
 // Resposta
+Conheço vários padrões como o OOCSS, SMACSS, BEM e o DRY CSS, todos estes sistemas possuem conceitos e abordagens para escrever código melhor e acredito um pouco em cada um deles. O ideal não é utilizar uma metodologia separada, mas sim criar um modelo híbrido para atender a aplicação em questão. Utilizo como referência a [convenção projeto SUIT CSS](https://github.com/suitcss/suit/blob/master/doc/naming-conventions.md), segue abaixo um exemplo de implementação:
+
+/* Utility */
+.u-utility-name {}
+
+/* Component */
+.block-name {}
+.block-name__element-name {}
+.block-name--modifier-name {}
+
+/* State */
+.is-global-state {}
+
+/* Component state (scoped to component) */
+.block-name.is-state-of-component {}
 ```
 
 
@@ -30,6 +46,7 @@ Tem algum exemplo que você não acha interessante?
 
 ```js
 // Resposta
+Nos meus projetos responsivos, gosto de fazer uso do Mobile First, que consiste em fazer a criação da aplicação primeiro em dispositivos mobiles, para depois adaptar para desktops e outras plataformas. Existem várias vantagens de se utilizar está prática, dentre elas, o melhor rankeamento no Google, melhor experiência ao usuário, e mais rápidez no carregamento da página e rederização de componentes e elementos.
 ```
 
 
@@ -123,6 +140,7 @@ Tem algum exemplo que você não acha interessante?
 
 ```js
 // Resposta
+Existem alguns problemas no código acima, dentre eles a tag <span> que está sendo utilizada para agrupar elementos no nível de bloco, sendo que sua utilização correta é para agrupar ou identificar elementos inline. As @media não estão sendo invocadas, por isso não estão causando efeito nenhum no código. As classes CSS não estão com nomenclatura consistentes, existem vazamentos de estilos para fora e para dentro dos componentes, não respeitando os limites do componente.
 ```
 
 
@@ -165,6 +183,7 @@ Tem algum exemplo que você não acha interessante?
 
 ```js
 // Resposta
+Existe alguns problemas ao produzirmos um código como o mostrado acima, mas os principais motivos são a geração de código desnecessario, aumentando o tamanho do arquivo final e principalmente a quebra da especificidade e a herança do código CSS. A confusão de !important vai acontecer, e o programador passará muito tempo resolvendo conflitos de formatação. Isso pode sempre piorar conforme o programador aninha cada vez mais os seletores e o projeto é grande. A solução é usar no máximo 3 aninhamentos. Um código bem feito naturalmente vai ter entre 2 ou 3 aninhamentos. Não é nescessario começar a formatar os elementos iniciando seu seletor sempre do elemento pai. Gosto de utilizar algumas ferramentas para testar códigos SASS, um deles é o SaasMeister, que converte código SASS em código CSS normal, e o outro é o ScssConverter, que converte código SASS para SCSS.
 ```
 
 
@@ -434,3 +453,5 @@ O que você pode fazer para criar um botão que atenda essa demanda?
 ```js
 // Resposta
 ```
+
+
