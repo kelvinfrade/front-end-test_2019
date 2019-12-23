@@ -2,26 +2,23 @@
 
 ### CSS
 
-1\) Na sua opinião, quais os melhores recursos para inclusão de imagens em um site/aplicação? 
+1\) Na sua opinião, quais os melhores recursos para inclusão de imagens em um site/aplicação?
 E o que você acha interessante não utilizar?
 Justifique levando em consideração boas práticas, estilização e formato de arquivos.
 
 ```js
 // Resposta
-Utilizo o CSS3 que agora permite coisas antes impossíveis, como elementos com cor ou fundo gradiente, sombras e cantos arredondados. Antes só era possível atingir esses resultados com o uso de imagens e às vezes até com um pouco de JavaScript. A redução do uso de imagens traz grandes vantagens quanto à performance e quantidade de tráfego de dados necessária para a exibição de uma página. Para aumentar a velocidade de carregamento do site/aplicação, faço uso da técnica de inserir imagens usando css. Esta prática consiste em utilizar a propriedade background-image do css para inserir as imagens.
 ```
 
+Utilizo o CSS3 que agora permite coisas antes impossíveis, como elementos com cor ou fundo gradiente, sombras e cantos arredondados. Antes só era possível atingir esses resultados com o uso de imagens e às vezes até com um pouco de JavaScript. A redução do uso de imagens traz grandes vantagens quanto à performance e quantidade de tráfego de dados necessária para a exibição de uma página. Para aumentar a velocidade de carregamento do site/aplicação, faço uso da técnica de inserir imagens usando css. Esta prática consiste em utilizar a propriedade background-image do css para inserir as imagens.
 
-
-
-2\) Você conhece algum padrão/metodologia que auxilie a estilização de uma aplicação? 
+2\) Você conhece algum padrão/metodologia que auxilie a estilização de uma aplicação?
 Explique um pouco através de exemplos;
 
+Conheço vários padrões como o OOCSS, SMACSS, BEM e o DRY CSS, todos estes sistemas possuem conceitos e abordagens para escrever código melhor e acredito um pouco em cada um deles. O ideal não é utilizar uma metodologia separada, mas sim criar um modelo híbrido para atender a aplicação em questão. Utilizo como referência a [convenção projeto SUIT CSS](https://github.com/suitcss/suit/blob/master/doc/naming-conventions.md), segue abaixo um exemplo de implementação:
 
 ```js
 // Resposta
-Conheço vários padrões como o OOCSS, SMACSS, BEM e o DRY CSS, todos estes sistemas possuem conceitos e abordagens para escrever código melhor e acredito um pouco em cada um deles. O ideal não é utilizar uma metodologia separada, mas sim criar um modelo híbrido para atender a aplicação em questão. Utilizo como referência a [convenção projeto SUIT CSS](https://github.com/suitcss/suit/blob/master/doc/naming-conventions.md), segue abaixo um exemplo de implementação:
-
 /* Utility */
 .u-utility-name {}
 
@@ -37,32 +34,26 @@ Conheço vários padrões como o OOCSS, SMACSS, BEM e o DRY CSS, todos estes sis
 .block-name.is-state-of-component {}
 ```
 
-
-
-
-3\) Se tratando de aplicações responsivas, quais práticas/recursos você costuma utilizar? 
+3\) Se tratando de aplicações responsivas, quais práticas/recursos você costuma utilizar?
 Tem algum exemplo que você não acha interessante?
-
 
 ```js
 // Resposta
-Nos meus projetos responsivos, gosto de fazer uso do Mobile First, que consiste em fazer a criação da aplicação primeiro em dispositivos mobiles, para depois adaptar para desktops e outras plataformas. Existem várias vantagens de se utilizar está prática, dentre elas, o melhor rankeamento no Google, melhor experiência ao usuário, e mais rápidez no carregamento da página e rederização de componentes e elementos.
 ```
 
-
-
+Nos meus projetos responsivos, gosto de fazer uso do Mobile First, que consiste em fazer a criação da aplicação primeiro em dispositivos mobiles, para depois adaptar para desktops e outras plataformas. Existem várias vantagens de se utilizar está prática, dentre elas, o melhor rankeamento no Google, melhor experiência ao usuário, e mais rápidez no carregamento da página e rederização de componentes e elementos.
 
 4\) Analisando as tags e estilos abaixo, aponte os principais problemas encontrados e reescreva-os;
 
 **Leve em consideração que as tags abaixo estão no meio de uma página html qualquer**
 
+-   HTML:
 
-- HTML:
 ```
 	<div class="lista-grande">
 		<h1>Lorem Ipsun Dolor</h1>
-			
-		<span class="list-item-holder">	
+
+		<span class="list-item-holder">
 			<ul>
 				<li class="item">
 					<label class="item__input-radio">
@@ -85,11 +76,11 @@ Nos meus projetos responsivos, gosto de fazer uso do Mobile First, que consiste 
 			</ul>
 		</span>
 	</div>
-  
+
 ```
 
+-   Estilos:
 
-- Estilos:
 ```
     .lista-grande{
         display: block;
@@ -140,11 +131,9 @@ Nos meus projetos responsivos, gosto de fazer uso do Mobile First, que consiste 
 
 ```js
 // Resposta
-Existem alguns problemas no código acima, dentre eles a tag <span> que está sendo utilizada para agrupar elementos no nível de bloco, sendo que sua utilização correta é para agrupar ou identificar elementos inline. As @media não estão sendo invocadas, por isso não estão causando efeito nenhum no código. As classes CSS não estão com nomenclatura consistentes, existem vazamentos de estilos para fora e para dentro dos componentes, não respeitando os limites do componente.
 ```
 
-
-
+Existem alguns problemas no código acima, dentre eles a tag <span> que está sendo utilizada para agrupar elementos no nível de bloco, sendo que sua utilização correta é para agrupar ou identificar elementos inline. As @media não estão sendo invocadas, por isso não estão causando efeito nenhum no código. As classes CSS não estão com nomenclatura consistentes, existem vazamentos de estilos para fora e para dentro dos componentes, não respeitando os limites do componente.
 
 5\) Analisando os estilos em `Nesting` do código abaixo, descreva, caso exista, os problemas gerados e as possíveis soluções;
 
@@ -175,7 +164,7 @@ Existem alguns problemas no código acima, dentre eles a tag <span> que está se
                     background-color: #FFF;
                 }
             }
-            
+
         }
     }
 
@@ -183,13 +172,11 @@ Existem alguns problemas no código acima, dentre eles a tag <span> que está se
 
 ```js
 // Resposta
-Existe alguns problemas ao produzirmos um código como o mostrado acima, mas os principais motivos são a geração de código desnecessario, aumentando o tamanho do arquivo final e principalmente a quebra da especificidade e a herança do código CSS. A confusão de !important vai acontecer, e o programador passará muito tempo resolvendo conflitos de formatação. Isso pode sempre piorar conforme o programador aninha cada vez mais os seletores e o projeto é grande. A solução é usar no máximo 3 aninhamentos. Um código bem feito naturalmente vai ter entre 2 ou 3 aninhamentos. Não é nescessario começar a formatar os elementos iniciando seu seletor sempre do elemento pai. Gosto de utilizar algumas ferramentas para testar códigos SASS, um deles é o SaasMeister, que converte código SASS em código CSS normal, e o outro é o ScssConverter, que converte código SASS para SCSS.
 ```
 
-
+Existe alguns problemas ao produzirmos um código como o mostrado acima, mas os principais motivos são a geração de código desnecessario, aumentando o tamanho do arquivo final e principalmente a quebra da especificidade e a herança do código CSS. A confusão de !important vai acontecer, e o programador passará muito tempo resolvendo conflitos de formatação. Isso pode sempre piorar conforme o programador aninha cada vez mais os seletores e o projeto é grande. A solução é usar no máximo 3 aninhamentos. Um código bem feito naturalmente vai ter entre 2 ou 3 aninhamentos. Não é nescessario começar a formatar os elementos iniciando seu seletor sempre do elemento pai. Gosto de utilizar algumas ferramentas para testar códigos SASS, um deles é o SaasMeister, que converte código SASS em código CSS normal, e o outro é o ScssConverter, que converte código SASS para SCSS.
 
 ---
-
 
 ### Javascript
 
@@ -197,6 +184,8 @@ Existe alguns problemas ao produzirmos um código como o mostrado acima, mas os 
 
 ```js
 // Resposta
+```
+
 Em javascript podemos tratar os processamentos assíncronos com os seguintes recursos: Callbacks, Promises e Async/Await.
 
 #### Callbacks
@@ -311,8 +300,6 @@ A saída do código acima é:
     25
 
 Neste exemplo async/await, consumimos as promessas e chamamos várias esperas em uma única função assíncrona.
-```
-
 
 2\) Quanto tempo vai demorar para o código a seguir imprimir "finished"? Justifique. (Levando em consideração que somePromise() vai retornar uma Promise resolvida)
 
@@ -342,15 +329,13 @@ Neste exemplo async/await, consumimos as promessas e chamamos várias esperas em
 
 ```js
 // Resposta
-irá demorar 3 segundos para o código acima imprimir "finished", pois o retorno da promise executa as funções doSomethingElse() e doSomething(), que chama o método setTimeout que permite que agendemos alguma função para execução no futuro e recebe o nome do método a ser executado e o número de milissegundos a esperar.
 ```
 
-
-
+irá demorar 3 segundos para o código acima imprimir "finished", pois o retorno da promise executa as funções doSomethingElse() e doSomething(), que chama o método setTimeout que permite que agendemos alguma função para execução no futuro e recebe o nome do método a ser executado e o número de milissegundos a esperar.
 
 3\) O que o código a seguir imprime? (Levando em consideração que somePromise() vai retornar uma Promise resolvida)
 
-```	
+```
 	somePromise()
 	    .then(() => {
 		throw new Error('uh oh!')
@@ -365,10 +350,9 @@ irá demorar 3 segundos para o código acima imprimir "finished", pois o retorno
 
 ```js
 // Resposta
-O código acima imprime a mensagem: "ok now!", no console do browser onde o arquivo está sendo executado.
 ```
 
-
+O código acima imprime a mensagem: "ok now!", no console do browser onde o arquivo está sendo executado.
 
 4\) Melhore a função a seguir:
 
@@ -403,19 +387,18 @@ O código acima imprime a mensagem: "ok now!", no console do browser onde o arqu
 
 ```
 
-
 ```js
 // Resposta
+```
+
 Podemos melhorar a função utilizando jQuery/Ajax ou Axios:
 
 ![Exemplo com Ajax](https://cdn-media-1.freecodecamp.org/images/1*vZ4BqVQfsvtpJm_RCsCE2Q.png)
 
 ![Exemplo com Axios](https://cdn-media-1.freecodecamp.org/images/1*4wmqiPsSN5mdgjJiRaKVZg.png)
-```
-
-
 
 5\) Dado um array de objetos, no qual cada objeto representa uma pessoa e possui as propriedades `name` e `age`, por exemplo:
+
 ```
     [
         { name: 'Rick Sanchez', age: 70 } ,
@@ -425,6 +408,7 @@ Podemos melhorar a função utilizando jQuery/Ajax ou Axios:
 ```
 
 Crie funções para:
+
 1. Retornar uma o array ordenado alfabeticamente pelos nomes;
 2. Fazer o somatório das idades;
 3. Verificar se alguma pessoa tem a idade maior que 50 (espera-se um retorno booleano).
@@ -432,15 +416,13 @@ Crie funções para:
 5. Remover o primeiro nome de todas as pessoas.
 6. Dado um determinado nome, retornar o primeiro objeto que corresponda a este nome.
 
-*Obs.: As funções criadas devem atender arrays de qualquer tamanho.*
-
+_Obs.: As funções criadas devem atender arrays de qualquer tamanho._
 
 ```js
 // Resposta
-Podemos fazer as operações acima trabalhando com os métodos criados apartir do ES6,  map(), filter() e reduce() são alternativas poderosas tanto para se operar com valores cumulativos, quanto para criar subconjuntos com base em condições. Estas funções são úteis para reduzir a complexidade, trabalhar sem “efeitos colaterais” e, muitas vezes, tornar o código mais legível e reutilizável.
 ```
 
-
+Podemos fazer as operações acima trabalhando com os métodos criados apartir do ES6, map(), filter() e reduce() são alternativas poderosas tanto para se operar com valores cumulativos, quanto para criar subconjuntos com base em condições. Estas funções são úteis para reduzir a complexidade, trabalhar sem “efeitos colaterais” e, muitas vezes, tornar o código mais legível e reutilizável.
 
 6\)Dado o seguinte trecho de código:
 
@@ -459,16 +441,37 @@ Podemos fazer as operações acima trabalhando com os métodos criados apartir d
 	console.log('regularTicket: ', regularTicket.prices);
 
 ```
-Explique o porquê dos preços estarem com o mesmo valor. E o que precisa ser alterado para que os preços sejam diferentes?
 
+Explique o porquê dos preços estarem com o mesmo valor. E o que precisa ser alterado para que os preços sejam diferentes?
 
 ```js
 // Resposta
-Os preços estão com o mesmo valor, pois mesmo utilizando arrow functions o this não está sendo fixado, assim ele irá variar de acordo com o contexto em que está inserido, para que os preços sejam diferentes é preciso definir o this para que ele não seja alterado de acordo com a situação exposta.
 ```
 
----
+Os preços estão com o mesmo valor, pois tem um dicionário dentro de outro, e o valor é pegado por referência, quando se altera o pai, o filho automaticamente é alterado também. Para resolver este problema, basta sobrescrever o prices, utilizando uma desestruturação. Veja a implementação abaixo:
 
+    const getDiscountTicket = (ticket, discount) => {
+        const discountTicket = { ...ticket };
+        //Desestruturação no prices
+        discountTicket.prices = { ...ticket.prices };
+
+        discountTicket.prices.vip = discountTicket.prices.vip * discount;
+        discountTicket.prices.stands = discountTicket.prices.stands * discount;
+
+        return discountTicket;
+    };
+
+    const regularTicket = {
+        band: "Metallica",
+        city: "Belo Horizonte",
+        prices: { vip: 800, stands: 600 }
+    };
+    const discountTicket = getDiscountTicket(regularTicket, 0.5);
+
+    console.log("discountTicket: ", discountTicket.prices);
+    console.log("regularTicket: ", regularTicket.prices);
+
+---
 
 ### AngularJs
 
@@ -476,6 +479,8 @@ Os preços estão com o mesmo valor, pois mesmo utilizando arrow functions o thi
 
 ```js
 // Resposta
+```
+
 A maioria dos sistemas de templates vinculam dados em apenas uma direção, que se funde com os componentes do modelo, e este por sua vez, executa uma saída na sua tela (isso é o evento Data Binding no AngularJS padrão). Após esta fusão, ocorrem algumas mudanças no modelo ou parte dele (seções), que estão relacionadas a esta tela. Entretanto, este comportamento, não é automático como pressupõe-se ao ver isso ocorrendo na tela. E pior ainda, as alterações que o usuário faz na tela não são refletidos no modelo.
 
 A grande jogada, está na mão do desenvolvedor, que tem que escrever o código que faz esta sincronia de maneira constante através do modelo e o mesmo retorna essa atualização para a tela (visão). Acontece que no AngularJs, O Data Binding funciona um pouco diferente:
@@ -489,24 +494,22 @@ Você pode pensar na visão (tela) como uma simples projeção instantânea do s
 Pense que o modelo é um tipo de facilitador, e o controlador o cara que envia as ordens para ele, e o que o modelo "facilitar", será refletido automaticamente na visão.
 
 ![Data Binding no AngularJS](https://docs.angularjs.org/img/Two_Way_Data_Binding.png)
-```
-
 
 2\) Liste quais são os Dispatchers e Listeners que existem no AngularJs, as diferenças entre eles, vantagens e desvantagens no uso dos mesmos;
 
 ```js
 // Resposta
+```
 
 #### Dispatchers
 
 O AngularJS fornece um sistema de dispatches de eventos que permite a comunicação entre controladores ou serviços e controladores.
 
-**$broadcast** - dispatches o evento para baixo pelos escopos filho
+**\$broadcast** - dispatches o evento para baixo pelos escopos filho
 
-**$emit** - dispatches  o evento para cima através da hierarquia de escopo
+**\$emit** - dispatches o evento para cima através da hierarquia de escopo
 
-**$on** - captura o evento que passa por esse escopo
-
+**\$on** - captura o evento que passa por esse escopo
 
 Geralmente, você pode vê-lo em uso $rootScope ou $scope:
 
@@ -519,66 +522,67 @@ Geralmente, você pode vê-lo em uso $rootScope ou $scope:
     $scope.$on('eventToCatch', function);
     $rootScope.$on('eventToCatch', function);
 
-Agora, há algumas coisas a saber sobre como usá-lo em $rootScope:
+Agora, há algumas coisas a saber sobre como usá-lo em \$rootScope:
 
-- Ambos $rootScope.$emite $rootScope.$broadcastpassam por escopos filhos, já $rootScopeque não têm um pai
+-   Ambos $rootScope.$emite $rootScope.$broadcastpassam por escopos filhos, já \$rootScopeque não têm um pai
 
-- $rootScope.$emit só pode ser recebido por $rootScope.$on
+-   $rootScope.$emit só pode ser recebido por $rootScope.$on
 
-- $rootScope.$broadcastpode ser recebido por $rootScope.$one$scope.$on
+-   $rootScope.$broadcastpode ser recebido por $rootScope.$one$scope.$on
 
-- $rootScope.$on o ouvinte precisa ser removido manualmente (vazamento de memória se esquecido)
+-   $rootScope.$on o ouvinte precisa ser removido manualmente (vazamento de memória se esquecido)
 
 **Performance**
 
-O uso $broadcastpode não parecer ideal se considerarmos a descrição que temos acima. No entanto, é otimizado para passar apenas por ramificações que possuem uma ligação de evento correspondente.
+O uso \$broadcastpode não parecer ideal se considerarmos a descrição que temos acima. No entanto, é otimizado para passar apenas por ramificações que possuem uma ligação de evento correspondente.
 
 #### Listeners
 
 Pode adicionar listeners de evento no AngularJs aos seus elementos HTML usando uma ou mais das diretivas abaixo:
 
-- ng-blur
-- ng-change
-- ng-click
-- ng-copy
-- ng-cut
-- ng-dblclick
-- ng-focus
-- ng-keydown
-- ng-keypress
-- ng-keyup
-- ng-mousedown
-- ng-mouseenter
-- ng-mouseleave
-- ng-mousemove
-- ng-mouseover
-- ng-mouseup
-- ng-paste
+-   ng-blur
+-   ng-change
+-   ng-click
+-   ng-copy
+-   ng-cut
+-   ng-dblclick
+-   ng-focus
+-   ng-keydown
+-   ng-keypress
+-   ng-keyup
+-   ng-mousedown
+-   ng-mouseenter
+-   ng-mouseleave
+-   ng-mousemove
+-   ng-mouseover
+-   ng-mouseup
+-   ng-paste
 
 As diretivas de eventos nos permitem executar funções do AngularJs em determinados eventos do usuário.
-```
 
 3\) O que são e como funcionam os lifecycles no AngularJs? Cite um exemplo de uso de pelo menos um método lifecycle.
 
 ```js
 // Resposta
+```
+
 Existe alguns ciclos de vida onde o processo de renderização do AngularJs acontece, sendo eles:
 
-- ngAfterContentInit: Após o Angular pegar um conteúdo externo e inserir no componente: ng-content, chamado uma vez após o ngDoCheck.
+-   ngAfterContentInit: Após o Angular pegar um conteúdo externo e inserir no componente: ng-content, chamado uma vez após o ngDoCheck.
 
-- ngAfterViewInit: Após o Angular inicializar suas páginas e páginas filhas. Ele é chamado uma vez após o ngAfterContentChecked.
+-   ngAfterViewInit: Após o Angular inicializar suas páginas e páginas filhas. Ele é chamado uma vez após o ngAfterContentChecked.
 
 Basicamente temos os seguintes ciclos nesta ordem, sendo que durante a etapa amarela é onde os processos de renderização acontecem:
 
 ![Lifecycles no AngularJs](https://codecraft.tv/courses/angular/components/lifecycle-hooks/images/lifecycle-hooks.png)
-```
 
 4\) Qual recurso angularJs pode ser usado para aumentar a performance de campos de formulários que realizam algum processamento ao alterar o texto?
 
 ```js
 // Resposta
-Existem vários recursos do AngularJs como formulários orientados a templates, formulários orientados a dados (reativos),mas para aumentar a performance neste caso, podemos utilizar as validações assíncronas, o Form Builder e o Form Array.
 ```
+
+Existem vários recursos do AngularJs como formulários orientados a templates, formulários orientados a dados (reativos),mas para aumentar a performance neste caso, podemos utilizar as validações assíncronas, o Form Builder e o Form Array.
 
 5\) Dado o `Nesting` de componentes abaixo, indique a melhor forma do componente `<fourth-component>` se comunicar com `<first-component>`;
 
@@ -596,8 +600,10 @@ Existem vários recursos do AngularJs como formulários orientados a templates, 
 
 ```js
 // Resposta
-Podemos trabalhar com @Output. Evento disparado no filho que capturado no pai. Tendo em vista que a comunicação entre componentes pai e filho é simples, passamos através de property e a comunicação entre filho e pai passamos através de evento. Basta importar o EventEmitter e fazer uso.
 ```
+
+Podemos trabalhar com @Output. Evento disparado no filho que capturado no pai. Tendo em vista que a comunicação entre componentes pai e filho é simples, passamos através de property e a comunicação entre filho e pai passamos através de evento. Basta importar o EventEmitter e fazer uso.
+
 ---
 
 ### React
@@ -606,6 +612,8 @@ Podemos trabalhar com @Output. Evento disparado no filho que capturado no pai. T
 
 ```js
 // Resposta
+```
+
 Conceitualmente, componentes são como funções JavaScript. Eles aceitam entradas arbitrárias (chamadas “props”) e retornam elementos React que descrevem o que deve aparecer na tela. Existem dois tipos de escrita de componentes no React, sendo eles de Função e de Classe:
 
 A maneira mais simples de definir um componente é escrever uma função JavaScript:
@@ -625,12 +633,13 @@ Você também pode usar uma classe ES6 para definir um componente:
     }
 
 Os dois componentes acima são equivalentes do ponto de vista do React.
-```
 
 2\) O que são e como funcionam os lifecycles no ReactJs? Cite um exemplo de uso de pelo menos um método lifecycle.
 
 ```js
 // Resposta
+```
+
 Todo componente no React possui um ciclo de vida, dizemos que os componentes são montados em tela, podem sofrer alterações e no fim são desmontados. Assim, a cada passo do ciclo de vida de um componente conseguimos chamar métodos interceptando sua renderização tradicional ou captando informações desse ciclo. Esses métodos são definidos junto à classe do componente, o render é um deles. Vamos entender como tudo isso funciona:
 
 **constructor**
@@ -664,6 +673,7 @@ Chamado após o render indica que a renderização inicial do nosso componente f
         // O render já executou, o que faremos agora?
       }
     }
+
 Agora finalizamos os métodos responsáveis pela primeira renderização dos componentes e vamos partir para os métodos responsáveis pela atualização no ciclo de vida:
 
 **componentWillReceiveProps**
@@ -720,7 +730,6 @@ Apesar de termos três estágios do ciclo de vida a menos agora, nessa versão d
 **getDerivedStateFromProps** – Utilize esse método quando você precisar setar o state do seu componente baseado em alguma propriedade que ele está recebendo. Esse ciclo de vida é executado tanto na inicialização do componente quanto na sua atualização de propriedades e deve retornar as alterações no estado do componente baseada nas propriedades ou nulo.
 
 **getSnapshotBeforeUpdate** – Um novo ciclo utilizado para você buscar informações da DOM antes das alterações ocorrerem. Um exemplo é uma lista grande, ao atualizar seus itens seria interessante saber aonde estava o scroll do usuário para mantê-lo ou até reposiciona-lo. Todo valor retornado por esse método é enviado ao componentDidUpdate que é o ciclo executado na sequência.
-```
 
 3\) Atualmente nosso sistema possui um componente chamado Button que possui a seguinte estrutura:
 
@@ -759,14 +768,12 @@ Apesar de termos três estágios do ciclo de vida a menos agora, nessa versão d
     export default Button;
 ```
 
-Atualmente, os nossos botões podem variar na cor, texto e ação que é executada ao ser clicado. 
-No entanto, para uma nova atividade, foi solicitado seja criado um botão que contém também um ícone. 
+Atualmente, os nossos botões podem variar na cor, texto e ação que é executada ao ser clicado.
+No entanto, para uma nova atividade, foi solicitado seja criado um botão que contém também um ícone.
 O que você pode fazer para criar um botão que atenda essa demanda?
-
 
 ```js
 // Resposta
-Para resolver está questão, posso criar uma variável de contexto com o comando React.createContext passando como parâmetro o valor padrão quando nenhum valor existir nessa variável. Utilizarei um componente chamado Provider que pertence à essa variável. Para isso vou precisar fazer uma função dentro do Consumer que recebe como parâmetro o valor da variável e retorna um elemento.
 ```
 
-
+Para resolver está questão, posso criar uma variável de contexto com o comando React.createContext passando como parâmetro o valor padrão quando nenhum valor existir nessa variável. Utilizarei um componente chamado Provider que pertence à essa variável. Para isso vou precisar fazer uma função dentro do Consumer que recebe como parâmetro o valor da variável e retorna um elemento.
