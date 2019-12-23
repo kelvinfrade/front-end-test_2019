@@ -197,9 +197,121 @@ Existe alguns problemas ao produzirmos um código como o mostrado acima, mas os 
 
 ```js
 // Resposta
+Em javascript podemos tratar os processamentos assíncronos com os seguintes recursos: Callbacks, Promises e Async/Await.
+
+#### Callbacks
+
+A função de retorno de chamada é uma função que será chamada após a execução da primeira função e executará a segunda função.
+
+    function getUser(){
+               setTimeout(() => {
+                   const userids = [10, 20, 30, 40];
+                   console.log(userids);
+                   setTimeout((id) => {
+                       const user = {
+                           name:'John Doe',
+                           age: 25
+                       };
+                           console.log(`User ID : ${id} : User name : ${user.name}, User Age: ${user.age}`)
+                           setTimeout((age) => {
+                               console.log(user);
+                           }, 1000, user.age);
+               }, 1000, userids[3]);
+               }, 1500)
+           }
+     getUser();
+
+A saída do código acima é:
+
+    (4) [10, 20, 30, 40]
+    User ID : 40 : User name : John Doe, User Age: 25
+    {name: "John Doe", age: 25}
+
+Como você pode ver neste exemplo, temos três retornos de chamada aninhados um no outro, o que significa três chamadas ajax em cadeia para obter os dados do servidor. Pode ter mais e mais funções de retorno de chamada em cadeia e isso pode ficar fora de controle. Para tentar resolvermos este problema precisamos utilizar as promisses.
+
+#### Promises
+
+Uma promessa é um objeto que controla se o evento assíncrono já ocorreu ou não e determina o que acontece após o evento. Ele fornece dois valores, resolvidos ou rejeitados. Pode estar em três estados, cumpridos, pendentes ou rejeitados. Ajuda a detectar todos os erros que ocorreram após a rejeição ou anexar um retorno de chamada ao identificador do valor atingido.
+
+![Three states of a promise](https://www.topcoder.com/wp-content/uploads/2019/04/02.png)
+
+Antes que o evento aconteça, a promessa está pendente e, depois que o evento acontece, é chamada de resolvida. Quando a promessa for bem-sucedida e o resultado estiver disponível, ele será cumprido, mas se detectar erros, será chamado de rejeitado.
+
+    const getUsername = userid => {
+               return new Promise((resolve, reject) => {
+                   setTimeout((id) => {
+                       const user = {
+                           name:'John Doe',
+                           age: 25
+                       };
+                       resolve({user_id: id, username: user.name, age: user.age});
+                   },1500, userid)
+               })
+           }
+           const getUserage = userid => {
+               return new Promise((resolve, reject) =>{
+                   setTimeout((id) =>{
+                       const user = {
+                           name:'John Doe',
+                           age: 25
+                       };
+                       resolve({user_id:id, user_age: user.age})
+                   },1500, userid)
+               })
+           }
+          const getuserIds =  new Promise((resolve, reject) =>{
+               setTimeout(() => {
+                   resolve([10,20,30,40])
+               },1500)
+           });
+           getuserIds.then((IDS)=>{
+               console.log(IDS)
+               return getUsername(IDS[3]);
+           }).then((userObj) => {
+               console.log(userObj)
+               return getUserage(userObj.user_id);
+           }).then((userage) => {
+               console.log(userage)
+           }).catch((erorr)=>{
+               console.log(erorr)
+           })
+
+A saída do código acima é:
+
+    Promise {<pending>}
+    (4) [10, 20, 30, 40]
+    {user_id: 40, username: "John Doe", age: 25}
+    {user_id: 40, user_age: 25}
+
+No exemplo acima, consumimos nossas promessas com o "then" e, finalmente, uma "catch" para prender o erro. Também enfrentamos o problema de retorno desordenados de chamada com promessas.
+
+#### Async/Await
+
+Async/Await é usado para trabalhar com promessas com funções assíncronas. Colocar o Async na frente da função espera que ela retorne a promessa. Isso significa que todas as funções assíncronas têm um retorno de chamada. Aguardar pode ser usado para promessas únicas a serem resolvidas ou rejeitadas e retornar os dados ou erro. O Async/Await se comporta como a execução de código síncrono. Pode haver várias esperas em uma única função assíncrona. Usaremos a construção try/catch, o que facilita o processamento de código assíncrono e assíncrono. O Async/Await ajuda a lidar com a confusão de retorno de chamada.
+
+    const userfunc = async () => {
+              try {
+                  const id = await getuserIds;
+                  console.log(id);
+                  const getusername = await getUsername(id[3]);
+                  console.log(getusername.username);
+                  const getuserage = await getUserage(id[3]);
+                  console.log(getuserage.user_age);
+              } catch (error) {
+                  console.log(error);
+              }
+          };
+          userfunc();
+
+A saída do código acima é:
+
+    (4) [10, 20, 30, 40]
+    Promise {<pending>}
+    John Doe
+    25
+
+Neste exemplo async/await, consumimos as promessas e chamamos várias esperas em uma única função assíncrona.
 ```
-
-
 
 
 2\) Quanto tempo vai demorar para o código a seguir imprimir "finished"? Justifique. (Levando em consideração que somePromise() vai retornar uma Promise resolvida)
@@ -230,6 +342,7 @@ Existe alguns problemas ao produzirmos um código como o mostrado acima, mas os 
 
 ```js
 // Resposta
+irá demorar 3 segundos para o código acima imprimir "finished", pois o retorno da promise executa as funções doSomethingElse() e doSomething(), que chama o método setTimeout que permite que agendemos alguma função para execução no futuro e recebe o nome do método a ser executado e o número de milissegundos a esperar.
 ```
 
 
@@ -252,6 +365,7 @@ Existe alguns problemas ao produzirmos um código como o mostrado acima, mas os 
 
 ```js
 // Resposta
+O código acima imprime a mensagem: "ok now!", no console do browser onde o arquivo está sendo executado.
 ```
 
 
@@ -292,6 +406,11 @@ Existe alguns problemas ao produzirmos um código como o mostrado acima, mas os 
 
 ```js
 // Resposta
+Podemos melhorar a função utilizando jQuery/Ajax ou Axios:
+
+![Exemplo com Ajax](https://cdn-media-1.freecodecamp.org/images/1*vZ4BqVQfsvtpJm_RCsCE2Q.png)
+
+![Exemplo com Axios](https://cdn-media-1.freecodecamp.org/images/1*4wmqiPsSN5mdgjJiRaKVZg.png)
 ```
 
 
@@ -318,6 +437,7 @@ Crie funções para:
 
 ```js
 // Resposta
+Podemos fazer as operações acima trabalhando com os métodos criados apartir do ES6,  map(), filter() e reduce() são alternativas poderosas tanto para se operar com valores cumulativos, quanto para criar subconjuntos com base em condições. Estas funções são úteis para reduzir a complexidade, trabalhar sem “efeitos colaterais” e, muitas vezes, tornar o código mais legível e reutilizável.
 ```
 
 
@@ -344,6 +464,7 @@ Explique o porquê dos preços estarem com o mesmo valor. E o que precisa ser al
 
 ```js
 // Resposta
+Os preços estão com o mesmo valor, pois mesmo utilizando arrow functions o this não está sendo fixado, assim ele irá variar de acordo com o contexto em que está inserido, para que os preços sejam diferentes é preciso definir o this para que ele não seja alterado de acordo com a situação exposta.
 ```
 
 ---
