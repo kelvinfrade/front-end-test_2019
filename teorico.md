@@ -331,7 +331,7 @@ Neste exemplo async/await, consumimos as promessas e chamamos várias esperas em
 // Resposta
 ```
 
-irá demorar 3 segundos para o código acima imprimir "finished", pois o retorno da promise executa as funções doSomethingElse() e doSomething(), que chama o método setTimeout que permite que agendemos alguma função para execução no futuro e recebe o nome do método a ser executado e o número de milissegundos a esperar.
+irá demorar 3 segundos para o código acima imprimir "finished", pois o retorno da promise executa as funções doSomethingElse() e doSomething() de forma sequêncial, que chama o método setTimeout que permite que agendemos alguma função para execução no futuro e recebe o nome do método a ser executado e o número de milissegundos a esperar.
 
 3\) O que o código a seguir imprime? (Levando em consideração que somePromise() vai retornar uma Promise resolvida)
 
@@ -352,7 +352,7 @@ irá demorar 3 segundos para o código acima imprimir "finished", pois o retorno
 // Resposta
 ```
 
-O código acima imprime a mensagem: "ok now!", no console do browser onde o arquivo está sendo executado.
+O código acima imprime a mensagem: "uh oh!", vai dar um erro pois não se usa este padrão mais para tratar promises. Para contornar esta questão podemos utilizar o try/catch.
 
 4\) Melhore a função a seguir:
 
